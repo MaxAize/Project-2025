@@ -16,6 +16,7 @@ namespace final_project
         private List<Judge> judges = new List<Judge>();
         private int nextJudgeId = 1;
         private AvailabilitySchedule currentAvailability = new AvailabilitySchedule();
+        private Judge selectedJudge = null;
 
         public ManageJudgesForm()
         {
@@ -111,7 +112,7 @@ namespace final_project
                 {
                     return schedule;
                 }
-                
+
             }
 
             return schedule;
@@ -137,7 +138,7 @@ namespace final_project
                 {
                     return false;
                 }
-               
+
 
                 if (!schedule.WeeklyAvailability.ContainsKey(day))
                 {
@@ -206,11 +207,58 @@ namespace final_project
 
             if (clickedColumn.HeaderText == "Availability")
             {
-                var value = dgvJudges.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    MessageBox.Show(value, "Availability Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                ShowAvailabilityDetails(e.RowIndex, e.ColumnIndex);
+                return;
+            }
+
+            LoadJudgeForEditing(e.RowIndex);
+        }
+
+        private void ShowAvailabilityDetails(int rowIndex, int columnIndex)
+        {
+            var value = dgvJudges.Rows[rowIndex].Cells[columnIndex].Value?.ToString();
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                MessageBox.Show(value, "Availability Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void LoadJudgeForEditing(int rowIndex)
+        {
+            selectedJudge = judges[rowIndex];
+            txtName.Text = selectedJudge.Name;
+            txtExperience.Text = selectedJudge.YearsOfExperience.ToString();
+            cmbLicense.SelectedItem = selectedJudge.License.ToString();
+            txtLocation.Text = selectedJudge.Location;
+            chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
+            currentAvailability = selectedJudge.Availability;
+            UpdateAvailabilityListBox();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (selectedJudge == null)
+            {
+                MessageBox.Show("Please select a judge to update.");
+                return;
+            }
+
+            try
+            {
+                selectedJudge.Name = txtName.Text.Trim();
+                selectedJudge.YearsOfExperience = int.Parse(txtExperience.Text);
+                selectedJudge.License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString());
+                selectedJudge.Location = txtLocation.Text.Trim();
+                selectedJudge.AcceptsOutdoorGames = chkOutdoorPreference.Checked;
+                selectedJudge.Availability = currentAvailability;
+
+                RefreshJudgeGrid();
+                ClearForm();
+                selectedJudge = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

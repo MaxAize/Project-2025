@@ -199,6 +199,7 @@ namespace final_project
             this.btnUpdate.Size = new System.Drawing.Size(100, 30);
             this.btnUpdate.TabIndex = 17;
             this.btnUpdate.Text = "Update Judge";
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
