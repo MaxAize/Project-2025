@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using final_project.Models;
+using final_project.DataAccess;
 
 namespace final_project
 {
     public partial class ManageJudgesForm : Form
     {
-        private List<Judge> judges = new List<Judge>();
-        private int nextJudgeId = 1;
+        private JudgeRepository judgeRepo = new JudgeRepository();
         private AvailabilitySchedule currentAvailability = new AvailabilitySchedule();
         private Judge selectedJudge = null;
 
         public ManageJudgesForm()
         {
             InitializeComponent();
+            RefreshJudgeGrid();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -32,8 +28,8 @@ namespace final_project
         {
             try
             {
-                var judge = createNewJudge();
-                judges.Add(judge);
+                Judge judge = CreateJudgeFromForm();
+                judgeRepo.AddJudge(judge);
                 RefreshJudgeGrid();
                 ClearForm();
             }
@@ -43,11 +39,10 @@ namespace final_project
             }
         }
 
-        private Judge createNewJudge()
+        private Judge CreateJudgeFromForm()
         {
             return new Judge
             {
-                ID = nextJudgeId++,
                 Name = txtName.Text.Trim(),
                 YearsOfExperience = int.Parse(txtExperience.Text),
                 License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString()),
@@ -59,20 +54,22 @@ namespace final_project
 
         private void RefreshJudgeGrid()
         {
+            List<Judge> judges = judgeRepo.GetAllJudges();
+
             dgvJudges.DataSource = null;
-            dgvJudges.DataSource = judges.Select(judge => new
+            dgvJudges.DataSource = judges.Select(j => new
             {
-                judge.ID,
-                judge.Name,
-                judge.YearsOfExperience,
-                License = judge.License.ToString(),
-                judge.Location,
-                Outdoor = judge.AcceptsOutdoorGames ? "Yes" : "No",
-                Availability = judge.AvailabilitySummary
+                j.ID,
+                j.Name,
+                j.YearsOfExperience,
+                License = j.License.ToString(),
+                j.Location,
+                Outdoor = j.AcceptsOutdoorGames ? "Yes" : "No",
+                Availability = j.AvailabilitySummary
             }).ToList();
 
             dgvJudges.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvJudges.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJudges_CellDoubleClick);
+            dgvJudges.CellDoubleClick += dgvJudges_CellDoubleClick;
         }
 
         private void ClearForm()
@@ -85,72 +82,9 @@ namespace final_project
             cmbDayOfWeek.SelectedIndex = -1;
             lstAvailability.Items.Clear();
             currentAvailability = new AvailabilitySchedule();
+            selectedJudge = null;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
-        }
-
-        private AvailabilitySchedule ParseAvailability(string input)
-        {
-            var schedule = new AvailabilitySchedule();
-            var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var line in lines)
-            {
-                var parts = line.Split(new[] { ' ' }, 2);
-
-                if (parts.Length != 2)
-                {
-                    return schedule;
-                }
-
-                bool validDay = Enum.TryParse(parts[0], true, out DayOfWeek day);
-
-                if (!validDay)
-                {
-                    return schedule;
-                }
-
-                if (!ParseAndAddTimeRanges(schedule, day, parts[1]))
-                {
-                    return schedule;
-                }
-
-            }
-
-            return schedule;
-        }
-
-        private bool ParseAndAddTimeRanges(AvailabilitySchedule schedule, DayOfWeek day, string timeRangesString)
-        {
-            var timeRanges = timeRangesString.Split(',');
-
-            foreach (var timeRange in timeRanges)
-            {
-                var range = timeRange.Trim().Split('-');
-
-                if (range.Length != 2)
-                {
-                    return false;
-                }
-
-                bool validStart = TimeSpan.TryParse(range[0], out var start);
-                bool validEnd = TimeSpan.TryParse(range[1], out var end);
-
-                if (!validStart || !validEnd)
-                {
-                    return false;
-                }
-
-
-                if (!schedule.WeeklyAvailability.ContainsKey(day))
-                {
-                    schedule.WeeklyAvailability[day] = new List<TimeRange>();
-                }
-
-                schedule.WeeklyAvailability[day].Add(new TimeRange(start, end));
-            }
-
-            return true;
         }
 
         private void btnAddTimeRange_Click(object sender, EventArgs e)
@@ -161,9 +95,9 @@ namespace final_project
                 return;
             }
 
-            var day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), cmbDayOfWeek.SelectedItem.ToString());
-            var start = dtpStartTime.Value.TimeOfDay;
-            var end = dtpEndTime.Value.TimeOfDay;
+            DayOfWeek day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), cmbDayOfWeek.SelectedItem.ToString());
+            TimeSpan start = dtpStartTime.Value.TimeOfDay;
+            TimeSpan end = dtpEndTime.Value.TimeOfDay;
 
             if (start >= end)
             {
@@ -172,7 +106,9 @@ namespace final_project
             }
 
             if (!currentAvailability.WeeklyAvailability.ContainsKey(day))
+            {
                 currentAvailability.WeeklyAvailability[day] = new List<TimeRange>();
+            }
 
             currentAvailability.WeeklyAvailability[day].Add(new TimeRange(start, end));
             UpdateAvailabilityListBox();
@@ -182,11 +118,11 @@ namespace final_project
         {
             lstAvailability.Items.Clear();
 
-            foreach (var pair in currentAvailability.WeeklyAvailability)
+            foreach (KeyValuePair<DayOfWeek, List<TimeRange>> pair in currentAvailability.WeeklyAvailability)
             {
-                foreach (var range in pair.Value)
+                foreach (TimeRange range in pair.Value)
                 {
-                    lstAvailability.Items.Add($"{pair.Key}: {range}");
+                    lstAvailability.Items.Add(string.Format("{0}: {1}", pair.Key, range.ToString()));
                 }
             }
         }
@@ -205,39 +141,44 @@ namespace final_project
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
                 return;
 
-            var clickedColumn = dgvJudges.Columns[e.ColumnIndex];
-
-            if (clickedColumn.HeaderText == "Availability")
+            string columnName = dgvJudges.Columns[e.ColumnIndex].HeaderText;
+            if (columnName == "Availability")
             {
                 ShowAvailabilityDetails(e.RowIndex, e.ColumnIndex);
-                return;
             }
-
-            LoadJudgeForEditing(e.RowIndex);
+            else
+            {
+                LoadJudgeForEditing(e.RowIndex);
+            }
         }
 
         private void ShowAvailabilityDetails(int rowIndex, int columnIndex)
         {
-            var value = dgvJudges.Rows[rowIndex].Cells[columnIndex].Value?.ToString();
-            if (!string.IsNullOrWhiteSpace(value))
+            object value = dgvJudges.Rows[rowIndex].Cells[columnIndex].Value;
+            if (value != null)
             {
-                MessageBox.Show(value, "Availability Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(value.ToString(), "Availability Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void LoadJudgeForEditing(int rowIndex)
         {
-            selectedJudge = judges[rowIndex];
-            txtName.Text = selectedJudge.Name;
-            txtExperience.Text = selectedJudge.YearsOfExperience.ToString();
-            cmbLicense.SelectedItem = selectedJudge.License.ToString();
-            txtLocation.Text = selectedJudge.Location;
-            chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
-            currentAvailability = selectedJudge.Availability;
-            UpdateAvailabilityListBox();
+            int id = Convert.ToInt32(dgvJudges.Rows[rowIndex].Cells["ID"].Value);
+            List<Judge> judges = judgeRepo.GetAllJudges();
+            selectedJudge = judges.Find(j => j.ID == id);
 
-            btnUpdate.Enabled = true;
-            btnDelete.Enabled = true;
+            if (selectedJudge != null)
+            {
+                txtName.Text = selectedJudge.Name;
+                txtExperience.Text = selectedJudge.YearsOfExperience.ToString();
+                cmbLicense.SelectedItem = selectedJudge.License.ToString();
+                txtLocation.Text = selectedJudge.Location;
+                chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
+                currentAvailability = selectedJudge.Availability;
+                UpdateAvailabilityListBox();
+                btnUpdate.Enabled = true;
+                btnDelete.Enabled = true;
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -257,9 +198,9 @@ namespace final_project
                 selectedJudge.AcceptsOutdoorGames = chkOutdoorPreference.Checked;
                 selectedJudge.Availability = currentAvailability;
 
+                judgeRepo.UpdateJudge(selectedJudge);
                 RefreshJudgeGrid();
                 ClearForm();
-                selectedJudge = null;
             }
             catch (Exception ex)
             {
@@ -271,24 +212,22 @@ namespace final_project
         {
             if (selectedJudge == null)
             {
-                MessageBox.Show("Please select a judge to delete by double-clicking a row.");
+                MessageBox.Show("Please select a judge to delete.");
                 return;
             }
 
-            var confirmResult = MessageBox.Show(
-                $"Are you sure you want to delete Judge '{selectedJudge.Name}'?",
+            DialogResult confirmResult = MessageBox.Show(
+                string.Format("Are you sure you want to delete Judge '{0}'?", selectedJudge.Name),
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (confirmResult == DialogResult.Yes)
             {
-                judges.Remove(selectedJudge);
+                judgeRepo.DeleteJudge(selectedJudge.ID);
                 RefreshJudgeGrid();
                 ClearForm();
-                selectedJudge = null;
             }
         }
-
     }
 }
