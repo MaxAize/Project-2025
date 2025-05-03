@@ -11,8 +11,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
@@ -20,6 +18,7 @@
             this.btnBack = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.btnDeleteAssignment = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
             this.SuspendLayout();
             // 
@@ -31,8 +30,6 @@
             this.dgvSchedule.Size = new System.Drawing.Size(740, 300);
             this.dgvSchedule.TabIndex = 0;
             this.dgvSchedule.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvSchedule.AutoResizeColumns();
-            this.dgvSchedule.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             // 
             // btnRefresh
             // 
@@ -71,6 +68,16 @@
             this.progressBar.TabIndex = 4;
             this.progressBar.Visible = false;
             // 
+            // btnDeleteAssignment
+            // 
+            this.btnDeleteAssignment.Location = new System.Drawing.Point(600, 350);
+            this.btnDeleteAssignment.Name = "btnDeleteAssignment";
+            this.btnDeleteAssignment.Size = new System.Drawing.Size(150, 35);
+            this.btnDeleteAssignment.TabIndex = 5;
+            this.btnDeleteAssignment.Text = "Delete Assignment";
+            this.btnDeleteAssignment.UseVisualStyleBackColor = true;
+            this.btnDeleteAssignment.Click += new System.EventHandler(this.btnDeleteAssignment_Click);
+            // 
             // ViewScheduleForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -80,18 +87,18 @@
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.btnDeleteAssignment);
             this.Name = "ViewScheduleForm";
             this.Text = "View Schedule";
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
             this.ResumeLayout(false);
         }
 
-        #endregion
-
         private System.Windows.Forms.DataGridView dgvSchedule;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button btnDeleteAssignment;
     }
 }
