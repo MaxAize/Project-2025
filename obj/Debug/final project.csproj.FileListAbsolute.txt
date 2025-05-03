@@ -20,3 +20,4 @@ C:\tomer\Project-2025\obj\Debug\final project.csproj.CoreCompileInputs.cache
 C:\tomer\Project-2025\obj\Debug\final project.exe
 C:\tomer\Project-2025\obj\Debug\final project.pdb
 C:\tomer\Project-2025\obj\Debug\final_project.ManageJudgesForm.resources
+C:\tomer\Project-2025\obj\Debug\final_project.ManageGamesForm.resources

@@ -23,7 +23,8 @@ namespace final_project
 
         private void btnManageGames_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Navigate to Manage Games");
+            ManageGamesForm gamesForm = new ManageGamesForm();
+            gamesForm.ShowDialog(); 
         }
 
         private void btnMonthlyAssignment_Click(object sender, EventArgs e)
