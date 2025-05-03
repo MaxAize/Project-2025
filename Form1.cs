@@ -29,7 +29,8 @@ namespace final_project
 
         private void btnMonthlyAssignment_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Navigate to Monthly Assignment");
+            MonthlyAssigmentForm assigmentForm = new MonthlyAssigmentForm();
+            assigmentForm.ShowDialog();
         }
 
         private void btnViewSchedule_Click(object sender, EventArgs e)

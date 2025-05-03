@@ -64,6 +64,12 @@
     <Compile Include="ManageJudgesForm.Designer.cs">
       <DependentUpon>ManageJudgesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MonthlyAssigmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyAssigmentForm.Designer.cs">
+      <DependentUpon>MonthlyAssigmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
