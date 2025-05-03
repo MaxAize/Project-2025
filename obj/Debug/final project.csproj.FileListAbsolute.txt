@@ -9,3 +9,14 @@ C:\Users\User\Desktop\C\final project\final project\obj\Debug\final project.cspr
 C:\Users\User\Desktop\C\final project\final project\obj\Debug\final project.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\C\final project\final project\obj\Debug\final project.exe
 C:\Users\User\Desktop\C\final project\final project\obj\Debug\final project.pdb
+C:\tomer\Project-2025\bin\Debug\final project.exe.config
+C:\tomer\Project-2025\bin\Debug\final project.exe
+C:\tomer\Project-2025\bin\Debug\final project.pdb
+C:\tomer\Project-2025\obj\Debug\final project.csproj.AssemblyReference.cache
+C:\tomer\Project-2025\obj\Debug\final_project.Form1.resources
+C:\tomer\Project-2025\obj\Debug\final_project.Properties.Resources.resources
+C:\tomer\Project-2025\obj\Debug\final project.csproj.GenerateResource.cache
+C:\tomer\Project-2025\obj\Debug\final project.csproj.CoreCompileInputs.cache
+C:\tomer\Project-2025\obj\Debug\final project.exe
+C:\tomer\Project-2025\obj\Debug\final project.pdb
+C:\tomer\Project-2025\obj\Debug\final_project.ManageJudgesForm.resources

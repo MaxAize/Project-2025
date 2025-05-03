@@ -2,15 +2,8 @@
 {
     partial class Form1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,89 +15,76 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnManageJudges = new System.Windows.Forms.Button();
+            this.btnManageGames = new System.Windows.Forms.Button();
+            this.btnMonthlyAssignment = new System.Windows.Forms.Button();
+            this.btnViewSchedule = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // lblTitle
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(250, 30);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(300, 40);
+            this.lblTitle.Text = "Judge Assignment System";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // btnManageJudges
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(113, 110);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.btnManageJudges.Location = new System.Drawing.Point(300, 100);
+            this.btnManageJudges.Name = "btnManageJudges";
+            this.btnManageJudges.Size = new System.Drawing.Size(200, 40);
+            this.btnManageJudges.Text = "Manage Judges";
+            this.btnManageJudges.Click += new System.EventHandler(this.btnManageJudges_Click);
             // 
-            // label2
+            // btnManageGames
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(497, 110);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.btnManageGames.Location = new System.Drawing.Point(300, 160);
+            this.btnManageGames.Name = "btnManageGames";
+            this.btnManageGames.Size = new System.Drawing.Size(200, 40);
+            this.btnManageGames.Text = "Manage Games";
+            this.btnManageGames.Click += new System.EventHandler(this.btnManageGames_Click);
             // 
-            // button1
+            // btnMonthlyAssignment
             // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnMonthlyAssignment.Location = new System.Drawing.Point(300, 220);
+            this.btnMonthlyAssignment.Name = "btnMonthlyAssignment";
+            this.btnMonthlyAssignment.Size = new System.Drawing.Size(200, 40);
+            this.btnMonthlyAssignment.Text = "Monthly Assignment";
+            this.btnMonthlyAssignment.Click += new System.EventHandler(this.btnMonthlyAssignment_Click);
             // 
-            // button2
+            // btnViewSchedule
             // 
-            this.button2.Location = new System.Drawing.Point(485, 204);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnViewSchedule.Location = new System.Drawing.Point(300, 280);
+            this.btnViewSchedule.Name = "btnViewSchedule";
+            this.btnViewSchedule.Size = new System.Drawing.Size(200, 40);
+            this.btnViewSchedule.Text = "View Schedule";
+            this.btnViewSchedule.Click += new System.EventHandler(this.btnViewSchedule_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.btnManageJudges);
+            this.Controls.Add(this.btnManageGames);
+            this.Controls.Add(this.btnMonthlyAssignment);
+            this.Controls.Add(this.btnViewSchedule);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Main Screen";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnManageJudges;
+        private System.Windows.Forms.Button btnManageGames;
+        private System.Windows.Forms.Button btnMonthlyAssignment;
+        private System.Windows.Forms.Button btnViewSchedule;
     }
 }
-

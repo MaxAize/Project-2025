@@ -1,0 +1,46 @@
+# Ignore Visual Studio temporary files, build results, and cache
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+# Visual Studio auto-generated files
+*.cache
+*.log
+*.ide
+*.sdf
+*.sln.docstates
+
+# Debugging & design-time files
+*.vshost.*
+*.dbmdl
+*.psess
+*.vsp
+*.resx
+
+# NuGet Packages
+*.nupkg
+packages/
+
+# Others
+*.swp
+*.bak
+*.tmp
+*.~*
+*.orig
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
