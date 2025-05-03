@@ -15,10 +15,10 @@ namespace final_project
 
         }
 
-        private void btnManageJudges_Click(object sender, EventArgs e)
+        private void btnManageReferees_Click(object sender, EventArgs e)
         {
-            ManageJudgesForm judgesForm = new ManageJudgesForm();
-            judgesForm.ShowDialog();
+            ManageRefereesForm referessForm = new ManageRefereesForm();
+            referessForm.ShowDialog();
         }
 
         private void btnManageGames_Click(object sender, EventArgs e)

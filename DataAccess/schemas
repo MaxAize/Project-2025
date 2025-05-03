@@ -1,0 +1,32 @@
+CREATE DATABASE IF NOT EXISTS basketball_db;
+USE basketball_db;
+
+CREATE TABLE Referees (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100),
+    YearsOfExperience INT,
+    License ENUM('A', 'B', 'C'),
+    Location VARCHAR(100),
+    AcceptsOutdoorGames BOOLEAN
+);
+
+CREATE TABLE IF NOT EXISTS Games (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    DateTime DATETIME,
+    Location VARCHAR(100),
+    League ENUM('First', 'Second', 'Third'),
+    IsPlayoff BOOLEAN,
+    ImportanceRating INT,
+    Field ENUM('Indoor', 'Outdoor')
+  );
+
+CREATE TABLE RefereeAvailability (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    RefereeID INT NOT NULL,
+    DayOfWeek ENUM('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
+    StartTime TIME NOT NULL,
+    EndTime TIME NOT NULL,
+    FOREIGN KEY (RefereeID) REFERENCES Referees(ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

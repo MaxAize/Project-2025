@@ -7,22 +7,22 @@ using System.Windows.Forms;
 
 namespace final_project
 {
-    public partial class ManageJudgesForm : Form
+    public partial class ManageRefereesForm : Form
     {
-        private JudgeRepository judgeRepo = new JudgeRepository();
+        private RefereeRepository refereeRepo = new RefereeRepository();
         private AvailabilitySchedule currentAvailability = new AvailabilitySchedule();
-        private Judge selectedJudge = null;
-        private List<JudgeAvailability> ConvertToJudgeAvailability(AvailabilitySchedule schedule, int judgeId)
+        private Referee selectedReferee = null;
+        private List<RefereeAvailability> ConvertToRefereeAvailability(AvailabilitySchedule schedule, int refereeId)
         {
-            var list = new List<JudgeAvailability>();
+            var list = new List<RefereeAvailability>();
 
             foreach (var entry in schedule.WeeklyAvailability)
             {
                 foreach (var timeRange in entry.Value)
                 {
-                    list.Add(new JudgeAvailability
+                    list.Add(new RefereeAvailability
                     {
-                        JudgeID = judgeId,
+                        RefereeID = refereeId,
                         Day = entry.Key,
                         StartTime = timeRange.Start,
                         EndTime = timeRange.End
@@ -34,7 +34,7 @@ namespace final_project
         }
 
 
-        private AvailabilitySchedule ConvertToAvailabilitySchedule(List<JudgeAvailability> dbAvailability)
+        private AvailabilitySchedule ConvertToAvailabilitySchedule(List<RefereeAvailability> dbAvailability)
         {
             var schedule = new AvailabilitySchedule();
 
@@ -52,10 +52,10 @@ namespace final_project
         }
 
 
-        public ManageJudgesForm()
+        public ManageRefereesForm()
         {
             InitializeComponent();
-            RefreshJudgeGrid();
+            RefreshRefereeGrid();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -67,9 +67,9 @@ namespace final_project
         {
             try
             {
-                Judge judge = CreateJudgeFromForm();
-                judgeRepo.AddJudge(judge);
-                RefreshJudgeGrid();
+                Referee referee = CreateRefereeFromForm();
+                refereeRepo.AddReferee(referee);
+                RefreshRefereeGrid();
                 ClearForm();
             }
             catch (Exception ex)
@@ -78,37 +78,37 @@ namespace final_project
             }
         }
 
-        private Judge CreateJudgeFromForm()
+        private Referee CreateRefereeFromForm()
         {
-            return new Judge
+            return new Referee
             {
                 Name = txtName.Text.Trim(),
                 YearsOfExperience = int.Parse(txtExperience.Text),
                 License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString()),
                 Location = txtLocation.Text.Trim(),
                 AcceptsOutdoorGames = chkOutdoorPreference.Checked,
-                Availability = ConvertToJudgeAvailability(currentAvailability, 0)
+                Availability = ConvertToRefereeAvailability(currentAvailability, 0)
             };
         }
 
-        private void RefreshJudgeGrid()
+        private void RefreshRefereeGrid()
         {
-            List<Judge> judges = judgeRepo.GetAllJudges();
+            List<Referee> referees = refereeRepo.GetAllReferees();
 
-            dgvJudges.DataSource = null;
-            dgvJudges.DataSource = judges.Select(j => new
+            dgvReferees.DataSource = null;
+            dgvReferees.DataSource = referees.Select(referee => new
             {
-                j.ID,
-                j.Name,
-                j.YearsOfExperience,
-                License = j.License.ToString(),
-                j.Location,
-                Outdoor = j.AcceptsOutdoorGames ? "Yes" : "No",
-                Availability = j.AvailabilitySummary
+                referee.ID,
+                referee.Name,
+                referee.YearsOfExperience,
+                License = referee.License.ToString(),
+                referee.Location,
+                Outdoor = referee.AcceptsOutdoorGames ? "Yes" : "No",
+                Availability = referee.AvailabilitySummary
             }).ToList();
 
-            dgvJudges.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvJudges.CellDoubleClick += dgvJudges_CellDoubleClick;
+            dgvReferees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvReferees.CellDoubleClick += dgvReferees_CellDoubleClick;
         }
 
         private void ClearForm()
@@ -121,7 +121,7 @@ namespace final_project
             cmbDayOfWeek.SelectedIndex = -1;
             lstAvailability.Items.Clear();
             currentAvailability = new AvailabilitySchedule();
-            selectedJudge = null;
+            selectedReferee = null;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
         }
@@ -175,22 +175,22 @@ namespace final_project
             }
         }
 
-        private void dgvJudges_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvReferees_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            int id = Convert.ToInt32(dgvJudges.Rows[e.RowIndex].Cells["ID"].Value);
-            List<Judge> judges = judgeRepo.GetAllJudges();
-            selectedJudge = judges.FirstOrDefault(j => j.ID == id);
+            int id = Convert.ToInt32(dgvReferees.Rows[e.RowIndex].Cells["ID"].Value);
+            List<Referee> referees = refereeRepo.GetAllReferees();
+            selectedReferee = referees.FirstOrDefault(referee => referee.ID == id);
 
-            if (selectedJudge != null)
+            if (selectedReferee != null)
             {
-                txtName.Text = selectedJudge.Name;
-                txtExperience.Text = selectedJudge.YearsOfExperience.ToString();
-                cmbLicense.SelectedItem = selectedJudge.License.ToString();
-                txtLocation.Text = selectedJudge.Location;
-                chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
-                currentAvailability = ConvertToAvailabilitySchedule(selectedJudge.Availability);
+                txtName.Text = selectedReferee.Name;
+                txtExperience.Text = selectedReferee.YearsOfExperience.ToString();
+                cmbLicense.SelectedItem = selectedReferee.License.ToString();
+                txtLocation.Text = selectedReferee.Location;
+                chkOutdoorPreference.Checked = selectedReferee.AcceptsOutdoorGames;
+                currentAvailability = ConvertToAvailabilitySchedule(selectedReferee.Availability);
                 UpdateAvailabilityListBox();
                 btnUpdate.Enabled = true;
                 btnDelete.Enabled = true;
@@ -199,23 +199,23 @@ namespace final_project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (selectedJudge == null)
+            if (selectedReferee == null)
             {
-                MessageBox.Show("Please select a judge to update.");
+                MessageBox.Show("Please select a referee to update.");
                 return;
             }
 
             try
             {
-                selectedJudge.Name = txtName.Text.Trim();
-                selectedJudge.YearsOfExperience = int.Parse(txtExperience.Text);
-                selectedJudge.License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString());
-                selectedJudge.Location = txtLocation.Text.Trim();
-                selectedJudge.AcceptsOutdoorGames = chkOutdoorPreference.Checked;
-                selectedJudge.Availability = ConvertToJudgeAvailability(currentAvailability, selectedJudge.ID);
+                selectedReferee.Name = txtName.Text.Trim();
+                selectedReferee.YearsOfExperience = int.Parse(txtExperience.Text);
+                selectedReferee.License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString());
+                selectedReferee.Location = txtLocation.Text.Trim();
+                selectedReferee.AcceptsOutdoorGames = chkOutdoorPreference.Checked;
+                selectedReferee.Availability = ConvertToRefereeAvailability(currentAvailability, selectedReferee.ID);
 
-                judgeRepo.UpdateJudge(selectedJudge);
-                RefreshJudgeGrid();
+                refereeRepo.UpdateReferee(selectedReferee);
+                RefreshRefereeGrid();
                 ClearForm();
             }
             catch (Exception ex)
@@ -226,22 +226,22 @@ namespace final_project
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (selectedJudge == null)
+            if (selectedReferee == null)
             {
-                MessageBox.Show("Please select a judge to delete.");
+                MessageBox.Show("Please select a referee to delete.");
                 return;
             }
 
             DialogResult confirmResult = MessageBox.Show(
-                string.Format("Are you sure you want to delete Judge '{0}'?", selectedJudge.Name),
+                string.Format("Are you sure you want to delete Referee '{0}'?", selectedReferee.Name),
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (confirmResult == DialogResult.Yes)
             {
-                judgeRepo.DeleteJudge(selectedJudge.ID);
-                RefreshJudgeGrid();
+                refereeRepo.DeleteReferee(selectedReferee.ID);
+                RefreshRefereeGrid();
                 ClearForm();
             }
         }

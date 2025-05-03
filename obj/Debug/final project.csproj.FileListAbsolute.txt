@@ -18,7 +18,6 @@ C:\tomer\Project-2025\obj\Debug\final project.csproj.GenerateResource.cache
 C:\tomer\Project-2025\obj\Debug\final project.csproj.CoreCompileInputs.cache
 C:\tomer\Project-2025\obj\Debug\final project.exe
 C:\tomer\Project-2025\obj\Debug\final project.pdb
-C:\tomer\Project-2025\obj\Debug\final_project.ManageJudgesForm.resources
 C:\tomer\Project-2025\obj\Debug\final_project.ManageGamesForm.resources
 C:\tomer\Project-2025\obj\Debug\final_project.MainScreenForm.resources
 C:\tomer\Project-2025\obj\Debug\final project.csproj.SuggestedBindingRedirects.cache
@@ -56,3 +55,4 @@ C:\tomer\Project-2025\bin\Debug\System.Numerics.Vectors.xml
 C:\tomer\Project-2025\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\tomer\Project-2025\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\tomer\Project-2025\obj\Debug\final pr.B8116CFE.Up2Date
+C:\tomer\Project-2025\obj\Debug\final_project.ManageRefereesForm.resources

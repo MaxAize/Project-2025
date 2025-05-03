@@ -18,7 +18,7 @@
         private void InitializeComponent()
         {
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnManageJudges = new System.Windows.Forms.Button();
+            this.btnManageReferees = new System.Windows.Forms.Button();
             this.btnManageGames = new System.Windows.Forms.Button();
             this.btnMonthlyAssignment = new System.Windows.Forms.Button();
             this.btnViewSchedule = new System.Windows.Forms.Button();
@@ -30,16 +30,16 @@
             this.lblTitle.Location = new System.Drawing.Point(250, 30);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(300, 40);
-            this.lblTitle.Text = "Judge Assignment System";
+            this.lblTitle.Text = "Referee Assignment System";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnManageJudges
+            // btnManageReferees
             // 
-            this.btnManageJudges.Location = new System.Drawing.Point(300, 100);
-            this.btnManageJudges.Name = "btnManageJudges";
-            this.btnManageJudges.Size = new System.Drawing.Size(200, 40);
-            this.btnManageJudges.Text = "Manage Judges";
-            this.btnManageJudges.Click += new System.EventHandler(this.btnManageJudges_Click);
+            this.btnManageReferees.Location = new System.Drawing.Point(300, 100);
+            this.btnManageReferees.Name = "btnManageReferees";
+            this.btnManageReferees.Size = new System.Drawing.Size(200, 40);
+            this.btnManageReferees.Text = "Manage Referees";
+            this.btnManageReferees.Click += new System.EventHandler(this.btnManageReferees_Click);
             // 
             // btnManageGames
             // 
@@ -69,7 +69,7 @@
             // 
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnManageJudges);
+            this.Controls.Add(this.btnManageReferees);
             this.Controls.Add(this.btnManageGames);
             this.Controls.Add(this.btnMonthlyAssignment);
             this.Controls.Add(this.btnViewSchedule);
@@ -82,7 +82,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnManageJudges;
+        private System.Windows.Forms.Button btnManageReferees;
         private System.Windows.Forms.Button btnManageGames;
         private System.Windows.Forms.Button btnMonthlyAssignment;
         private System.Windows.Forms.Button btnViewSchedule;

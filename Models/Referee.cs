@@ -9,7 +9,7 @@ namespace final_project.Models
         A, B, C
     }
 
-    public class Judge
+    public class Referee
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -18,8 +18,8 @@ namespace final_project.Models
         public string Location { get; set; }
         public bool AcceptsOutdoorGames { get; set; }
 
-        // Availability is now a list of JudgeAvailability records
-        public List<JudgeAvailability> Availability { get; set; }
+        // Availability is now a list of RefereeAvailability records
+        public List<RefereeAvailability> Availability { get; set; }
 
         public string AvailabilitySummary
         {
@@ -35,15 +35,15 @@ namespace final_project.Models
             }
         }
 
-        public Judge()
+        public Referee()
         {
-            Availability = new List<JudgeAvailability>();
+            Availability = new List<RefereeAvailability>();
         }
     }
 
-    public class JudgeAvailability
+    public class RefereeAvailability
     {
-        public int JudgeID { get; set; }
+        public int RefereeID { get; set; }
         public DayOfWeek Day { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }

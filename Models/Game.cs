@@ -26,12 +26,12 @@ namespace final_project.Models
         public int ImportanceRating { get; set; }
         public FieldType Field { get; set; }
 
-        // Optional: Assigned Judges
-        public List<int> AssignedJudgeIds { get; set; }
+        // Optional: Assigned Referres
+        public List<int> AssignedReferresIds { get; set; }
 
         public Game()
         {
-            AssignedJudgeIds = new List<int>();
+            AssignedReferresIds = new List<int>();
         }
 
         public override string ToString()

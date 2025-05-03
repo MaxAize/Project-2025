@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace final_project
 {
-    partial class ManageJudgesForm
+    partial class ManageRefereesForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -19,7 +19,7 @@ namespace final_project
 
         private void InitializeComponent()
         {
-            this.dgvJudges = new System.Windows.Forms.DataGridView();
+            this.dgvReferees = new System.Windows.Forms.DataGridView();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtExperience = new System.Windows.Forms.TextBox();
             this.cmbLicense = new System.Windows.Forms.ComboBox();
@@ -39,16 +39,16 @@ namespace final_project
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvJudges)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReferees)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvJudges
+            // dgvReferees
             // 
-            this.dgvJudges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvJudges.Location = new System.Drawing.Point(30, 30);
-            this.dgvJudges.Name = "dgvJudges";
-            this.dgvJudges.Size = new System.Drawing.Size(820, 200);
-            this.dgvJudges.TabIndex = 0;
+            this.dgvReferees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReferees.Location = new System.Drawing.Point(30, 30);
+            this.dgvReferees.Name = "dgvReferees";
+            this.dgvReferees.Size = new System.Drawing.Size(820, 200);
+            this.dgvReferees.TabIndex = 0;
             // 
             // txtName
             // 
@@ -67,10 +67,7 @@ namespace final_project
             // cmbLicense
             // 
             this.cmbLicense.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLicense.Items.AddRange(new object[] {
-            "A",
-            "B",
-            "C"});
+            this.cmbLicense.Items.AddRange(new object[] {"A","B","C"});
             this.cmbLicense.Location = new System.Drawing.Point(130, 310);
             this.cmbLicense.Name = "cmbLicense";
             this.cmbLicense.Size = new System.Drawing.Size(150, 21);
@@ -141,7 +138,7 @@ namespace final_project
             this.chkOutdoorPreference.Name = "chkOutdoorPreference";
             this.chkOutdoorPreference.Size = new System.Drawing.Size(178, 17);
             this.chkOutdoorPreference.TabIndex = 10;
-            this.chkOutdoorPreference.Text = "Willing to Judge Outdoor Games";
+            this.chkOutdoorPreference.Text = "Willing to Referee Outdoor Games";
             // 
             // lblName
             // 
@@ -189,7 +186,7 @@ namespace final_project
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(100, 30);
             this.btnAdd.TabIndex = 16;
-            this.btnAdd.Text = "Add Judge";
+            this.btnAdd.Text = "Add Referee";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUpdate
@@ -198,7 +195,7 @@ namespace final_project
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 30);
             this.btnUpdate.TabIndex = 17;
-            this.btnUpdate.Text = "Update Judge";
+            this.btnUpdate.Text = "Update Referee";
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
@@ -207,7 +204,7 @@ namespace final_project
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(100, 30);
             this.btnDelete.TabIndex = 18;
-            this.btnDelete.Text = "Delete Judge";
+            this.btnDelete.Text = "Delete Referee";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnBack
@@ -219,12 +216,12 @@ namespace final_project
             this.btnBack.Text = "Back";
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // ManageJudgesForm
+            // ManageRefereesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 450);
-            this.Controls.Add(this.dgvJudges);
+            this.Controls.Add(this.dgvReferees);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtExperience);
             this.Controls.Add(this.cmbLicense);
@@ -244,9 +241,9 @@ namespace final_project
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnBack);
-            this.Name = "ManageJudgesForm";
-            this.Text = "Manage Judges";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvJudges)).EndInit();
+            this.Name = "ManageRefereesForm";
+            this.Text = "Manage Referees";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReferees)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,7 +251,7 @@ namespace final_project
 
         #endregion
 
-        private DataGridView dgvJudges;
+        private DataGridView dgvReferees;
         private TextBox txtName;
         private TextBox txtExperience;
         private ComboBox cmbLicense;
