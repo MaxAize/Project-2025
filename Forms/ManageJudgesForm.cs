@@ -85,6 +85,8 @@ namespace final_project
             cmbDayOfWeek.SelectedIndex = -1;
             lstAvailability.Items.Clear();
             currentAvailability = new AvailabilitySchedule();
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
         }
 
         private AvailabilitySchedule ParseAvailability(string input)
@@ -233,6 +235,9 @@ namespace final_project
             chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
             currentAvailability = selectedJudge.Availability;
             UpdateAvailabilityListBox();
+
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -261,5 +266,29 @@ namespace final_project
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedJudge == null)
+            {
+                MessageBox.Show("Please select a judge to delete by double-clicking a row.");
+                return;
+            }
+
+            var confirmResult = MessageBox.Show(
+                $"Are you sure you want to delete Judge '{selectedJudge.Name}'?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                judges.Remove(selectedJudge);
+                RefreshJudgeGrid();
+                ClearForm();
+                selectedJudge = null;
+            }
+        }
+
     }
 }

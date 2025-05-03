@@ -208,6 +208,7 @@ namespace final_project
             this.btnDelete.Size = new System.Drawing.Size(100, 30);
             this.btnDelete.TabIndex = 18;
             this.btnDelete.Text = "Delete Judge";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnBack
             // 
