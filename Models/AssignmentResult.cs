@@ -2,6 +2,7 @@
 {
     public class AssignmentResult
     {
+        public int ID { get; set; }
         public Game Game { get; set; }
         public Referee Referee { get; set; }
 

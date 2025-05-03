@@ -10,6 +10,7 @@ namespace final_project.Services
     {
         private readonly GameRepository gameRepo = new GameRepository();
         private readonly RefereeRepository refereeRepo = new RefereeRepository();
+        private readonly AssignmentResultRepository assignmentRepo = new AssignmentResultRepository(); // Add this line
         private List<AssignmentResult> assignedResults;
         private List<AssignmentResult> bestResults;
         private List<List<AssignmentResult>> tabuList;
@@ -58,7 +59,23 @@ namespace final_project.Services
             selected.ForEach(referee =>
                 assignedResults.Add(new AssignmentResult { Game = game, Referee = referee }));
 
+            // Save assignment results to the database after generating initial assignments
+            SaveAssignmentsToDatabase(selected, game);
             Console.WriteLine($"Assigned {selected.Count} referees to the game at {game.Location}");
+        }
+
+        // New method to save assignments to the database
+        private void SaveAssignmentsToDatabase(List<Referee> selectedReferees, Game game)
+        {
+            foreach (var referee in selectedReferees)
+            {
+                AssignmentResult assignmentResult = new AssignmentResult
+                {
+                    Game = game,
+                    Referee = referee
+                };
+                assignmentRepo.AddAssignmentResult(assignmentResult); // Save to DB
+            }
         }
 
         private List<Referee> GetEligibleReferees(Game game, List<Referee> referees)

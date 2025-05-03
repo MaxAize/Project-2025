@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\AssignmentResultRepository.cs" />
     <Compile Include="DataAccess\GameRepository.cs" />
     <Compile Include="DataAccess\RefereeRepository.cs" />
     <Compile Include="Forms\MainScreenForm.cs">
@@ -155,6 +156,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DataAccess\dummyData" />
     <None Include="DataAccess\schemas" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

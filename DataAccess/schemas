@@ -1,7 +1,9 @@
+-- Create the database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS basketball_db;
 USE basketball_db;
 
-CREATE TABLE Referees (
+-- Create Referees Table
+CREATE TABLE IF NOT EXISTS Referees (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(100),
     YearsOfExperience INT,
@@ -10,6 +12,7 @@ CREATE TABLE Referees (
     AcceptsOutdoorGames BOOLEAN
 );
 
+-- Create Games Table
 CREATE TABLE IF NOT EXISTS Games (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     DateTime DATETIME,
@@ -18,14 +21,28 @@ CREATE TABLE IF NOT EXISTS Games (
     IsPlayoff BOOLEAN,
     ImportanceRating INT,
     Field ENUM('Indoor', 'Outdoor')
-  );
+);
 
-CREATE TABLE RefereeAvailability (
+-- Create RefereeAvailability Table
+CREATE TABLE IF NOT EXISTS RefereeAvailability (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     RefereeID INT NOT NULL,
     DayOfWeek ENUM('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
+    FOREIGN KEY (RefereeID) REFERENCES Referees(ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Create AssignmentResults Table (New Table to track assignments)
+CREATE TABLE IF NOT EXISTS AssignmentResults (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    GameID INT NOT NULL,
+    RefereeID INT NOT NULL,
+    FOREIGN KEY (GameID) REFERENCES Games(ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (RefereeID) REFERENCES Referees(ID)
         ON DELETE CASCADE
         ON UPDATE CASCADE
