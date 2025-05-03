@@ -35,7 +35,8 @@ namespace final_project
 
         private void btnViewSchedule_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Navigate to View Schedule");
+            ViewScheduleForm scheduleForm = new ViewScheduleForm();
+            scheduleForm.ShowDialog();
         }
     }
 }
