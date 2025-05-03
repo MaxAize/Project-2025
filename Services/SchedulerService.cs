@@ -10,7 +10,7 @@ namespace final_project.Services
     {
         private readonly GameRepository gameRepo = new GameRepository();
         private readonly RefereeRepository refereeRepo = new RefereeRepository();
-        private readonly AssignmentResultRepository assignmentRepo = new AssignmentResultRepository(); // Add this line
+        private readonly AssignmentResultRepository assignmentRepo = new AssignmentResultRepository();
         private List<AssignmentResult> assignedResults;
         private List<AssignmentResult> bestResults;
         private List<List<AssignmentResult>> tabuList;
@@ -32,36 +32,29 @@ namespace final_project.Services
             var games = gameRepo.GetAllGames().OrderByDescending(g => g.ImportanceRating).ToList();
             var referees = refereeRepo.GetAllReferees();
 
-            Console.WriteLine($"Generating initial assignments for {games.Count} games and {referees.Count} referees.");
-
             foreach (var game in games)
             {
                 AssignRefereesToGame(game, referees);
             }
+
             bestResults = new List<AssignmentResult>(assignedResults);
         }
 
         private void AssignRefereesToGame(Game game, List<Referee> referees)
         {
             var eligibleReferees = GetEligibleReferees(game, referees);
-            Console.WriteLine($"Game: {game.Location}, {game.DateTime} requires {GetRefereeCount(game)} referees. Eligible referees: {eligibleReferees.Count}");
 
             var selected = eligibleReferees
                 .OrderByDescending(r => r.YearsOfExperience)
+                .ThenBy(r => r.License)
                 .Take(GetRefereeCount(game))
                 .ToList();
-
-            if (!selected.Any())
-            {
-                Console.WriteLine($"No referees selected for game at {game.Location}. This might be an issue.");
-            }
 
             selected.ForEach(referee =>
                 assignedResults.Add(new AssignmentResult { Game = game, Referee = referee }));
 
             // Save assignment results to the database after generating initial assignments
             SaveAssignmentsToDatabase(selected, game);
-            Console.WriteLine($"Assigned {selected.Count} referees to the game at {game.Location}");
         }
 
         // New method to save assignments to the database
@@ -80,29 +73,13 @@ namespace final_project.Services
 
         private List<Referee> GetEligibleReferees(Game game, List<Referee> referees)
         {
-            var eligible = referees.Where(referee => IsEligible(referee, game)).ToList();
-            Console.WriteLine($"Eligible referees for game {game.Location}: {eligible.Count}");
-            foreach (var referee in eligible)
-            {
-                Console.WriteLine($"Referee {referee.Name}, License: {referee.License}, Availability: {referee.Availability.Count} slots");
-            }
-            return eligible;
+           return referees.Where(referee => IsEligible(referee, game)).ToList();
         }
 
         private bool IsEligible(Referee referee, Game game)
         {
             bool validLicense = HasValidLicense(referee, game.ImportanceRating);
             bool available = IsAvailable(referee, game);
-
-            if (!validLicense)
-            {
-                Console.WriteLine($"Referee {referee.Name} does not have a valid license for this game. Required: {game.ImportanceRating}");
-            }
-
-            if (!available)
-            {
-                Console.WriteLine($"Referee {referee.Name} is not available for this game at {game.DateTime}");
-            }
 
             return validLicense && available;
         }
@@ -152,12 +129,10 @@ namespace final_project.Services
                     bestResults = new List<AssignmentResult>(bestNeighbor);
                     assignedResults = bestResults;
                     iterationWithoutImprovement = 0;
-                    Console.WriteLine($"New best solution found at iteration {iteration}. Resetting iterationWithoutImprovement.");
                 }
                 else
                 {
                     iterationWithoutImprovement++;
-                    Console.WriteLine($"No improvement at iteration {iteration}. Iteration without improvement: {iterationWithoutImprovement}");
                 }
 
                 tabuList.Add(bestNeighbor);
@@ -172,8 +147,6 @@ namespace final_project.Services
         {
             var neighbors = new List<List<AssignmentResult>>();
 
-            Console.WriteLine($"Generating neighbors. Current assigned results count: {assignedResults.Count}");
-
             for (int i = 0; i < assignedResults.Count; i++)
             {
                 for (int j = i + 1; j < assignedResults.Count; j++)
@@ -184,12 +157,10 @@ namespace final_project.Services
                     if (!TabuListContains(neighbor))
                     {
                         neighbors.Add(neighbor);
-                        Console.WriteLine($"Generated a new neighbor with swapped referees: {neighbor[i].Referee.Name}, {neighbor[j].Referee.Name}");
                     }
                 }
             }
 
-            Console.WriteLine($"Generated {neighbors.Count} neighbors.");
             return neighbors;
         }
 
@@ -203,15 +174,12 @@ namespace final_project.Services
             var temp = neighbor[i];
             neighbor[i] = neighbor[j];
             neighbor[j] = temp;
-
-            Console.WriteLine($"Swapped {i} and {j}: {neighbor[i].Referee.Name} <=> {neighbor[j].Referee.Name}");
         }
 
         private List<AssignmentResult> GetBestNeighbor(List<List<AssignmentResult>> neighbors)
         {
             if (neighbors == null || !neighbors.Any())
             {
-                Console.WriteLine("No valid neighbors found, returning the current best.");
                 return bestResults;
             }
 
@@ -240,7 +208,6 @@ namespace final_project.Services
             penalty += CalculateOverloadedRefereePenalty(solution);
             penalty += CalculateConsecutiveAssignmentsPenalty(solution);
 
-            Console.WriteLine($"Objective function calculated with penalty: {penalty}");
             return penalty;
         }
 
