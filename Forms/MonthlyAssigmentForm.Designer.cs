@@ -21,6 +21,7 @@
             this.lblStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssignmentResults)).BeginInit();
             this.SuspendLayout();
+
             // 
             // dgvAssignmentResults
             // 
@@ -29,6 +30,11 @@
             this.dgvAssignmentResults.Name = "dgvAssignmentResults";
             this.dgvAssignmentResults.Size = new System.Drawing.Size(740, 280);
             this.dgvAssignmentResults.TabIndex = 0;
+
+            // Make sure content adjusts to the size of the DataGridView
+            this.dgvAssignmentResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAssignmentResults.AutoResizeColumns();
+
             // 
             // btnGenerate
             // 
@@ -38,7 +44,8 @@
             this.btnGenerate.TabIndex = 1;
             this.btnGenerate.Text = "Generate Assignment";
             this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
+            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);  // Event handler added here
+
             // 
             // btnReset
             // 
@@ -48,7 +55,8 @@
             this.btnReset.TabIndex = 2;
             this.btnReset.Text = "Reset Assignment";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);  // Event handler added here
+
             // 
             // lblStatus
             // 
@@ -58,6 +66,7 @@
             this.lblStatus.TabIndex = 3;
             this.lblStatus.Text = "Status: Waiting...";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+
             // 
             // MonthlyAssigmentForm
             // 

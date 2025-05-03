@@ -1,0 +1,105 @@
+-- Insert Referees (Increased number of referees)
+INSERT INTO Referees (Name, YearsOfExperience, License, Location, AcceptsOutdoorGames)
+VALUES
+    ('John Doe', 5, 'A', 'New York', true),
+    ('Jane Smith', 3, 'B', 'Los Angeles', false),
+    ('Mike Johnson', 7, 'A', 'Chicago', true),
+    ('Emily Davis', 4, 'C', 'Houston', false),
+    ('David Brown', 6, 'B', 'San Francisco', true),
+    ('Alice Green', 4, 'B', 'Miami', true),
+    ('Robert White', 10, 'A', 'Boston', true),
+    ('Sophia Black', 2, 'C', 'Seattle', false),
+    ('James Blue', 6, 'B', 'Dallas', true),
+    ('Olivia Pink', 5, 'A', 'Atlanta', false),
+    ('Lucas Brown', 3, 'B', 'Los Angeles', true),
+    ('Zoe Green', 7, 'A', 'Chicago', true),
+    ('Jack White', 2, 'C', 'San Francisco', true),
+    ('Mia Blue', 6, 'B', 'New York', false),
+    ('Liam Smith', 8, 'A', 'San Diego', true);
+
+-- Insert Referee Availability (Updated with enough availability for games)
+INSERT INTO RefereeAvailability (RefereeID, DayOfWeek, StartTime, EndTime)
+VALUES
+    -- John Doe's availability
+    (1, 'Monday', '08:00:00', '12:00:00'),
+    (1, 'Wednesday', '14:00:00', '18:00:00'),
+    (1, 'Friday', '10:00:00', '14:00:00'),
+
+    -- Jane Smith's availability
+    (2, 'Tuesday', '09:00:00', '13:00:00'),
+    (2, 'Thursday', '12:00:00', '16:00:00'),
+    (2, 'Saturday', '08:00:00', '12:00:00'),
+
+    -- Mike Johnson's availability
+    (3, 'Monday', '13:00:00', '17:00:00'),
+    (3, 'Wednesday', '09:00:00', '13:00:00'),
+    (3, 'Friday', '15:00:00', '19:00:00'),
+
+    -- Emily Davis's availability
+    (4, 'Tuesday', '14:00:00', '18:00:00'),
+    (4, 'Thursday', '10:00:00', '14:00:00'),
+    (4, 'Sunday', '08:00:00', '12:00:00'),
+
+    -- David Brown's availability
+    (5, 'Monday', '15:00:00', '19:00:00'),
+    (5, 'Thursday', '09:00:00', '13:00:00'),
+    (5, 'Saturday', '14:00:00', '18:00:00'),
+
+    -- Alice Green's availability
+    (6, 'Monday', '09:00:00', '13:00:00'),
+    (6, 'Wednesday', '10:00:00', '14:00:00'),
+    (6, 'Friday', '15:00:00', '19:00:00'),
+
+    -- Robert White's availability
+    (7, 'Tuesday', '08:00:00', '12:00:00'),
+    (7, 'Thursday', '14:00:00', '18:00:00'),
+    (7, 'Saturday', '10:00:00', '14:00:00'),
+
+    -- Sophia Black's availability
+    (8, 'Monday', '11:00:00', '15:00:00'),
+    (8, 'Wednesday', '12:00:00', '16:00:00'),
+    (8, 'Friday', '14:00:00', '18:00:00'),
+
+    -- James Blue's availability
+    (9, 'Monday', '08:00:00', '12:00:00'),
+    (9, 'Thursday', '15:00:00', '19:00:00'),
+    (9, 'Saturday', '12:00:00', '16:00:00'),
+
+    -- Olivia Pink's availability
+    (10, 'Tuesday', '08:00:00', '12:00:00'),
+    (10, 'Wednesday', '14:00:00', '18:00:00'),
+    (10, 'Saturday', '10:00:00', '14:00:00'),
+
+    -- Lucas Brown's availability
+    (11, 'Thursday', '08:00:00', '12:00:00'),
+    (11, 'Friday', '13:00:00', '17:00:00'),
+    (11, 'Sunday', '14:00:00', '18:00:00'),
+
+    -- Zoe Green's availability
+    (12, 'Monday', '10:00:00', '14:00:00'),
+    (12, 'Wednesday', '15:00:00', '19:00:00'),
+    (12, 'Saturday', '08:00:00', '12:00:00'),
+
+    -- Jack White's availability
+    (13, 'Tuesday', '09:00:00', '13:00:00'),
+    (13, 'Thursday', '10:00:00', '14:00:00'),
+    (13, 'Friday', '15:00:00', '19:00:00'),
+
+    -- Mia Blue's availability
+    (14, 'Monday', '08:00:00', '12:00:00'),
+    (14, 'Wednesday', '12:00:00', '16:00:00'),
+    (14, 'Saturday', '10:00:00', '14:00:00'),
+
+    -- Liam Smith's availability
+    (15, 'Thursday', '09:00:00', '13:00:00'),
+    (15, 'Friday', '11:00:00', '15:00:00'),
+    (15, 'Sunday', '14:00:00', '18:00:00');
+
+-- Insert Sample Games into the Games Table (Updated with 5 games)
+INSERT INTO Games (DateTime, Location, League, IsPlayoff, ImportanceRating, Field)
+VALUES
+    ('2025-05-05 18:00:00', 'Madison Square Garden', 'First', false, 2500, 'Indoor'),
+    ('2025-05-06 20:00:00', 'Staples Center', 'Second', true, 1500, 'Outdoor'),
+    ('2025-05-07 15:00:00', 'Toyota Center', 'Third', false, 800, 'Indoor'),
+    ('2025-05-08 17:00:00', 'Chase Center', 'First', true, 2200, 'Outdoor'),
+    ('2025-05-09 19:00:00', 'United Center', 'Second', false, 1800, 'Indoor');

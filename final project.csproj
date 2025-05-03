@@ -124,6 +124,7 @@
     <Compile Include="Forms\MonthlyAssigmentForm.Designer.cs">
       <DependentUpon>MonthlyAssigmentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssignmentResult.cs" />
     <Compile Include="Models\AvailabilitySchedule.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Referee.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Forms\ViewScheduleForm.Designer.cs">
       <DependentUpon>ViewScheduleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\SchedulerService.cs" />
     <EmbeddedResource Include="Forms\MainScreenForm.resx">
       <DependentUpon>MainScreenForm.cs</DependentUpon>
     </EmbeddedResource>
