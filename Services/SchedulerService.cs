@@ -67,7 +67,7 @@ namespace final_project.Services
                     Game = game,
                     Referee = referee
                 };
-                assignmentRepo.AddAssignmentResult(assignmentResult); // Save to DB
+                assignmentRepo.AddAssignmentResult(assignmentResult);
             }
         }
 
@@ -198,9 +198,9 @@ namespace final_project.Services
         {
             int penalty = 0;
 
+            // Max penalty if no solution exists
             if (solution == null || !solution.Any())
             {
-                // Max penalty if no solution exists
                 return int.MaxValue;
             }
 
