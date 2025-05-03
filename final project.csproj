@@ -70,6 +70,9 @@
     <Compile Include="Forms\MonthlyAssigmentForm.Designer.cs">
       <DependentUpon>MonthlyAssigmentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvailabilitySchedule.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Judge.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\ViewScheduleForm.cs">

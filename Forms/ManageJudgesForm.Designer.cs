@@ -1,4 +1,8 @@
-﻿namespace final_project
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace final_project
 {
     partial class ManageJudgesForm
     {
@@ -19,7 +23,11 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtExperience = new System.Windows.Forms.TextBox();
             this.cmbLicense = new System.Windows.Forms.ComboBox();
-            this.txtAvailability = new System.Windows.Forms.TextBox();
+            this.cmbDayOfWeek = new System.Windows.Forms.ComboBox();
+            this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
+            this.btnAddTimeRange = new System.Windows.Forms.Button();
+            this.lstAvailability = new System.Windows.Forms.ListBox();
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.chkOutdoorPreference = new System.Windows.Forms.CheckBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -39,7 +47,7 @@
             this.dgvJudges.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvJudges.Location = new System.Drawing.Point(30, 30);
             this.dgvJudges.Name = "dgvJudges";
-            this.dgvJudges.Size = new System.Drawing.Size(700, 200);
+            this.dgvJudges.Size = new System.Drawing.Size(820, 200);
             this.dgvJudges.TabIndex = 0;
             // 
             // txtName
@@ -68,105 +76,144 @@
             this.cmbLicense.Size = new System.Drawing.Size(150, 21);
             this.cmbLicense.TabIndex = 3;
             // 
-            // txtAvailability
+            // cmbDayOfWeek
             // 
-            this.txtAvailability.Location = new System.Drawing.Point(500, 250);
-            this.txtAvailability.Multiline = true;
-            this.txtAvailability.Name = "txtAvailability";
-            this.txtAvailability.Size = new System.Drawing.Size(200, 50);
-            this.txtAvailability.TabIndex = 4;
+            this.cmbDayOfWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDayOfWeek.Items.AddRange(new object[] {
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"});
+            this.cmbDayOfWeek.Location = new System.Drawing.Point(500, 250);
+            this.cmbDayOfWeek.Name = "cmbDayOfWeek";
+            this.cmbDayOfWeek.Size = new System.Drawing.Size(100, 21);
+            this.cmbDayOfWeek.TabIndex = 5;
+            // 
+            // dtpStartTime
+            // 
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartTime.Location = new System.Drawing.Point(610, 250);
+            this.dtpStartTime.Name = "dtpStartTime";
+            this.dtpStartTime.ShowUpDown = true;
+            this.dtpStartTime.Size = new System.Drawing.Size(80, 20);
+            this.dtpStartTime.TabIndex = 6;
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndTime.Location = new System.Drawing.Point(700, 250);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(80, 20);
+            this.dtpEndTime.TabIndex = 7;
+            // 
+            // btnAddTimeRange
+            // 
+            this.btnAddTimeRange.Location = new System.Drawing.Point(790, 250);
+            this.btnAddTimeRange.Name = "btnAddTimeRange";
+            this.btnAddTimeRange.Size = new System.Drawing.Size(60, 23);
+            this.btnAddTimeRange.TabIndex = 8;
+            this.btnAddTimeRange.Text = "Add";
+            this.btnAddTimeRange.Click += new System.EventHandler(this.btnAddTimeRange_Click);
+            // 
+            // lstAvailability
+            // 
+            this.lstAvailability.Location = new System.Drawing.Point(500, 280);
+            this.lstAvailability.Name = "lstAvailability";
+            this.lstAvailability.Size = new System.Drawing.Size(350, 69);
+            this.lstAvailability.TabIndex = 9;
+            this.lstAvailability.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstAvailability_MouseDoubleClick);
             // 
             // txtLocation
             // 
-            this.txtLocation.Location = new System.Drawing.Point(500, 310);
+            this.txtLocation.Location = new System.Drawing.Point(130, 340);
             this.txtLocation.Name = "txtLocation";
-            this.txtLocation.Size = new System.Drawing.Size(200, 20);
-            this.txtLocation.TabIndex = 5;
+            this.txtLocation.Size = new System.Drawing.Size(150, 20);
+            this.txtLocation.TabIndex = 4;
             // 
             // chkOutdoorPreference
             // 
             this.chkOutdoorPreference.AutoSize = true;
-            this.chkOutdoorPreference.Location = new System.Drawing.Point(500, 340);
+            this.chkOutdoorPreference.Location = new System.Drawing.Point(500, 357);
             this.chkOutdoorPreference.Name = "chkOutdoorPreference";
             this.chkOutdoorPreference.Size = new System.Drawing.Size(178, 17);
-            this.chkOutdoorPreference.TabIndex = 6;
+            this.chkOutdoorPreference.TabIndex = 10;
             this.chkOutdoorPreference.Text = "Willing to Judge Outdoor Games";
             // 
             // lblName
             // 
-            this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(30, 250);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(38, 13);
-            this.lblName.TabIndex = 7;
+            this.lblName.Size = new System.Drawing.Size(100, 23);
+            this.lblName.TabIndex = 11;
             this.lblName.Text = "Name:";
             // 
             // lblExperience
             // 
-            this.lblExperience.AutoSize = true;
             this.lblExperience.Location = new System.Drawing.Point(30, 280);
             this.lblExperience.Name = "lblExperience";
-            this.lblExperience.Size = new System.Drawing.Size(105, 13);
-            this.lblExperience.TabIndex = 8;
+            this.lblExperience.Size = new System.Drawing.Size(100, 23);
+            this.lblExperience.TabIndex = 12;
             this.lblExperience.Text = "Years of Experience:";
             // 
             // lblLicense
             // 
-            this.lblLicense.AutoSize = true;
             this.lblLicense.Location = new System.Drawing.Point(30, 310);
             this.lblLicense.Name = "lblLicense";
-            this.lblLicense.Size = new System.Drawing.Size(47, 13);
-            this.lblLicense.TabIndex = 9;
+            this.lblLicense.Size = new System.Drawing.Size(100, 23);
+            this.lblLicense.TabIndex = 13;
             this.lblLicense.Text = "License:";
             // 
             // lblAvailability
             // 
-            this.lblAvailability.AutoSize = true;
             this.lblAvailability.Location = new System.Drawing.Point(400, 250);
             this.lblAvailability.Name = "lblAvailability";
-            this.lblAvailability.Size = new System.Drawing.Size(59, 13);
-            this.lblAvailability.TabIndex = 10;
+            this.lblAvailability.Size = new System.Drawing.Size(100, 23);
+            this.lblAvailability.TabIndex = 15;
             this.lblAvailability.Text = "Availability:";
             // 
             // lblLocation
             // 
-            this.lblLocation.AutoSize = true;
-            this.lblLocation.Location = new System.Drawing.Point(400, 310);
+            this.lblLocation.Location = new System.Drawing.Point(30, 340);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(51, 13);
-            this.lblLocation.TabIndex = 11;
+            this.lblLocation.Size = new System.Drawing.Size(100, 23);
+            this.lblLocation.TabIndex = 14;
             this.lblLocation.Text = "Location:";
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(130, 370);
+            this.btnAdd.Location = new System.Drawing.Point(130, 380);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(100, 30);
-            this.btnAdd.TabIndex = 7;
+            this.btnAdd.TabIndex = 16;
             this.btnAdd.Text = "Add Judge";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(240, 370);
+            this.btnUpdate.Location = new System.Drawing.Point(240, 380);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 30);
-            this.btnUpdate.TabIndex = 8;
+            this.btnUpdate.TabIndex = 17;
             this.btnUpdate.Text = "Update Judge";
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(350, 370);
+            this.btnDelete.Location = new System.Drawing.Point(350, 380);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(100, 30);
-            this.btnDelete.TabIndex = 9;
+            this.btnDelete.TabIndex = 18;
             this.btnDelete.Text = "Delete Judge";
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(460, 370);
+            this.btnBack.Location = new System.Drawing.Point(460, 380);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(100, 30);
-            this.btnBack.TabIndex = 10;
+            this.btnBack.TabIndex = 19;
             this.btnBack.Text = "Back";
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
@@ -174,19 +221,23 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 430);
+            this.ClientSize = new System.Drawing.Size(900, 450);
             this.Controls.Add(this.dgvJudges);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtExperience);
             this.Controls.Add(this.cmbLicense);
-            this.Controls.Add(this.txtAvailability);
             this.Controls.Add(this.txtLocation);
+            this.Controls.Add(this.cmbDayOfWeek);
+            this.Controls.Add(this.dtpStartTime);
+            this.Controls.Add(this.dtpEndTime);
+            this.Controls.Add(this.btnAddTimeRange);
+            this.Controls.Add(this.lstAvailability);
             this.Controls.Add(this.chkOutdoorPreference);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblExperience);
             this.Controls.Add(this.lblLicense);
-            this.Controls.Add(this.lblAvailability);
             this.Controls.Add(this.lblLocation);
+            this.Controls.Add(this.lblAvailability);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
@@ -201,21 +252,25 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvJudges;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtExperience;
-        private System.Windows.Forms.ComboBox cmbLicense;
-        private System.Windows.Forms.TextBox txtAvailability;
-        private System.Windows.Forms.TextBox txtLocation;
-        private System.Windows.Forms.CheckBox chkOutdoorPreference;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label lblExperience;
-        private System.Windows.Forms.Label lblLicense;
-        private System.Windows.Forms.Label lblAvailability;
-        private System.Windows.Forms.Label lblLocation;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnBack;
+        private DataGridView dgvJudges;
+        private TextBox txtName;
+        private TextBox txtExperience;
+        private ComboBox cmbLicense;
+        private TextBox txtLocation;
+        private CheckBox chkOutdoorPreference;
+        private Label lblName;
+        private Label lblExperience;
+        private Label lblLicense;
+        private Label lblAvailability;
+        private Label lblLocation;
+        private Button btnAdd;
+        private Button btnUpdate;
+        private Button btnDelete;
+        private Button btnBack;
+        private ComboBox cmbDayOfWeek;
+        private DateTimePicker dtpStartTime;
+        private DateTimePicker dtpEndTime;
+        private Button btnAddTimeRange;
+        private ListBox lstAvailability;
     }
 }
