@@ -46,45 +46,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\MainScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\MainScreenForm.Designer.cs">
+      <DependentUpon>MainScreenForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageGamesForm.cs">
+    <Compile Include="Forms\ManageGamesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageGamesForm.Designer.cs">
+    <Compile Include="Forms\ManageGamesForm.Designer.cs">
       <DependentUpon>ManageGamesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageJudgesForm.cs">
+    <Compile Include="Forms\ManageJudgesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageJudgesForm.Designer.cs">
+    <Compile Include="Forms\ManageJudgesForm.Designer.cs">
       <DependentUpon>ManageJudgesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MonthlyAssigmentForm.cs">
+    <Compile Include="Forms\MonthlyAssigmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MonthlyAssigmentForm.Designer.cs">
+    <Compile Include="Forms\MonthlyAssigmentForm.Designer.cs">
       <DependentUpon>MonthlyAssigmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewScheduleForm.cs">
+    <Compile Include="Forms\ViewScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ViewScheduleForm.Designer.cs">
+    <Compile Include="Forms\ViewScheduleForm.Designer.cs">
       <DependentUpon>ViewScheduleForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainScreenForm.resx">
+      <DependentUpon>MainScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageGamesForm.resx">
+    <EmbeddedResource Include="Forms\ManageGamesForm.resx">
       <DependentUpon>ManageGamesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageJudgesForm.resx">
+    <EmbeddedResource Include="Forms\ManageJudgesForm.resx">
       <DependentUpon>ManageJudgesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -109,5 +109,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

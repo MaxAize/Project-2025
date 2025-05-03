@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace final_project
 {
-    public partial class Form1 : Form
+    public partial class MainScreenForm : Form
     {
-        public Form1()
+        public MainScreenForm()
         {
             InitializeComponent();
         }

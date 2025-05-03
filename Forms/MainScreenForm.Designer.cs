@@ -1,6 +1,6 @@
 ﻿namespace final_project
 {
-    partial class Form1
+    partial class MainScreenForm
     {
         private System.ComponentModel.IContainer components = null;
 
