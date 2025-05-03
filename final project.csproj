@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\GameRepository.cs" />
     <Compile Include="DataAccess\JudgeRepository.cs" />
     <Compile Include="Forms\MainScreenForm.cs">
       <SubType>Form</SubType>

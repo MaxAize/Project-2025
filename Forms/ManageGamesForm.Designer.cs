@@ -122,14 +122,17 @@
             this.btnAdd.Location = new System.Drawing.Point(130, 360);
             this.btnAdd.Text = "Add Game";
             this.btnAdd.Size = new System.Drawing.Size(100, 30);
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 
             this.btnUpdate.Location = new System.Drawing.Point(240, 360);
             this.btnUpdate.Text = "Update Game";
             this.btnUpdate.Size = new System.Drawing.Size(100, 30);
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
 
             this.btnDelete.Location = new System.Drawing.Point(350, 360);
             this.btnDelete.Text = "Delete Game";
             this.btnDelete.Size = new System.Drawing.Size(100, 30);
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
 
             this.btnBack.Location = new System.Drawing.Point(460, 360);
             this.btnBack.Text = "Back";
