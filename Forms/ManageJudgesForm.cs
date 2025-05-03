@@ -1,9 +1,9 @@
-﻿using System;
+﻿using final_project.Models;
+using final_project.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using final_project.Models;
-using final_project.DataAccess;
 
 namespace final_project
 {
@@ -12,6 +12,45 @@ namespace final_project
         private JudgeRepository judgeRepo = new JudgeRepository();
         private AvailabilitySchedule currentAvailability = new AvailabilitySchedule();
         private Judge selectedJudge = null;
+        private List<JudgeAvailability> ConvertToJudgeAvailability(AvailabilitySchedule schedule, int judgeId)
+        {
+            var list = new List<JudgeAvailability>();
+
+            foreach (var entry in schedule.WeeklyAvailability)
+            {
+                foreach (var timeRange in entry.Value)
+                {
+                    list.Add(new JudgeAvailability
+                    {
+                        JudgeID = judgeId,
+                        Day = entry.Key,
+                        StartTime = timeRange.Start,
+                        EndTime = timeRange.End
+                    });
+                }
+            }
+
+            return list;
+        }
+
+
+        private AvailabilitySchedule ConvertToAvailabilitySchedule(List<JudgeAvailability> dbAvailability)
+        {
+            var schedule = new AvailabilitySchedule();
+
+            foreach (var entry in dbAvailability)
+            {
+                if (!schedule.WeeklyAvailability.ContainsKey(entry.Day))
+                {
+                    schedule.WeeklyAvailability[entry.Day] = new List<TimeRange>();
+                }
+
+                schedule.WeeklyAvailability[entry.Day].Add(new TimeRange(entry.StartTime, entry.EndTime));
+            }
+
+            return schedule;
+        }
+
 
         public ManageJudgesForm()
         {
@@ -48,7 +87,7 @@ namespace final_project
                 License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString()),
                 Location = txtLocation.Text.Trim(),
                 AcceptsOutdoorGames = chkOutdoorPreference.Checked,
-                Availability = currentAvailability
+                Availability = ConvertToJudgeAvailability(currentAvailability, 0)
             };
         }
 
@@ -138,34 +177,11 @@ namespace final_project
 
         private void dgvJudges_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                return;
+            if (e.RowIndex < 0) return;
 
-            string columnName = dgvJudges.Columns[e.ColumnIndex].HeaderText;
-            if (columnName == "Availability")
-            {
-                ShowAvailabilityDetails(e.RowIndex, e.ColumnIndex);
-            }
-            else
-            {
-                LoadJudgeForEditing(e.RowIndex);
-            }
-        }
-
-        private void ShowAvailabilityDetails(int rowIndex, int columnIndex)
-        {
-            object value = dgvJudges.Rows[rowIndex].Cells[columnIndex].Value;
-            if (value != null)
-            {
-                MessageBox.Show(value.ToString(), "Availability Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void LoadJudgeForEditing(int rowIndex)
-        {
-            int id = Convert.ToInt32(dgvJudges.Rows[rowIndex].Cells["ID"].Value);
+            int id = Convert.ToInt32(dgvJudges.Rows[e.RowIndex].Cells["ID"].Value);
             List<Judge> judges = judgeRepo.GetAllJudges();
-            selectedJudge = judges.Find(j => j.ID == id);
+            selectedJudge = judges.FirstOrDefault(j => j.ID == id);
 
             if (selectedJudge != null)
             {
@@ -174,7 +190,7 @@ namespace final_project
                 cmbLicense.SelectedItem = selectedJudge.License.ToString();
                 txtLocation.Text = selectedJudge.Location;
                 chkOutdoorPreference.Checked = selectedJudge.AcceptsOutdoorGames;
-                currentAvailability = selectedJudge.Availability;
+                currentAvailability = ConvertToAvailabilitySchedule(selectedJudge.Availability);
                 UpdateAvailabilityListBox();
                 btnUpdate.Enabled = true;
                 btnDelete.Enabled = true;
@@ -196,7 +212,7 @@ namespace final_project
                 selectedJudge.License = (LicenseType)Enum.Parse(typeof(LicenseType), cmbLicense.SelectedItem.ToString());
                 selectedJudge.Location = txtLocation.Text.Trim();
                 selectedJudge.AcceptsOutdoorGames = chkOutdoorPreference.Checked;
-                selectedJudge.Availability = currentAvailability;
+                selectedJudge.Availability = ConvertToJudgeAvailability(currentAvailability, selectedJudge.ID);
 
                 judgeRepo.UpdateJudge(selectedJudge);
                 RefreshJudgeGrid();

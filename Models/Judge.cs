@@ -18,26 +18,34 @@ namespace final_project.Models
         public string Location { get; set; }
         public bool AcceptsOutdoorGames { get; set; }
 
-        public AvailabilitySchedule Availability { get; set; }
+        // Availability is now a list of JudgeAvailability records
+        public List<JudgeAvailability> Availability { get; set; }
 
         public string AvailabilitySummary
         {
             get
             {
-                if (Availability == null || Availability.WeeklyAvailability.Count == 0)
+                if (Availability == null || Availability.Count == 0)
                 {
                     return "Not Set";
-                }    
+                }
 
                 return string.Join("; ",
-                    Availability.WeeklyAvailability
-                    .Select(pair => $"{pair.Key}: {string.Join(", ", pair.Value)}"));
+                    Availability.Select(avail => $"{avail.Day}: {avail.StartTime:hh\\:mm} - {avail.EndTime:hh\\:mm}"));
             }
         }
 
         public Judge()
         {
-            Availability = new AvailabilitySchedule();
+            Availability = new List<JudgeAvailability>();
         }
+    }
+
+    public class JudgeAvailability
+    {
+        public int JudgeID { get; set; }
+        public DayOfWeek Day { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
     }
 }
