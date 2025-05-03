@@ -19,6 +19,7 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
             this.SuspendLayout();
             // 
@@ -29,6 +30,9 @@
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.Size = new System.Drawing.Size(740, 300);
             this.dgvSchedule.TabIndex = 0;
+            this.dgvSchedule.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvSchedule.AutoResizeColumns();
+            this.dgvSchedule.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             // 
             // btnRefresh
             // 
@@ -59,6 +63,14 @@
             this.lblStatus.Text = "Status: Waiting...";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(30, 380);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(740, 15);
+            this.progressBar.TabIndex = 4;
+            this.progressBar.Visible = false;
+            // 
             // ViewScheduleForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -67,6 +79,7 @@
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.progressBar);
             this.Name = "ViewScheduleForm";
             this.Text = "View Schedule";
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).EndInit();
@@ -79,5 +92,6 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }

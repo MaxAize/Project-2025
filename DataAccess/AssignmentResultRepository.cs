@@ -37,10 +37,10 @@ namespace final_project.DataAccess
             {
                 conn.Open();
                 string query = @"SELECT ar.ID, ar.GameID, ar.RefereeID, g.Location as GameLocation, 
-                                 g.DateTime as GameDateTime, r.Name as RefereeName, r.License as RefereeLicense 
-                                 FROM AssignmentResults ar
-                                 JOIN Games g ON ar.GameID = g.ID
-                                 JOIN Referees r ON ar.RefereeID = r.ID";
+                         g.DateTime as GameDateTime, r.Name as RefereeName, r.License as RefereeLicense 
+                         FROM AssignmentResults ar
+                         JOIN Games g ON ar.GameID = g.ID
+                         JOIN Referees r ON ar.RefereeID = r.ID";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
